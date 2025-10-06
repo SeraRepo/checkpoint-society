@@ -60,7 +60,7 @@ function HomePage() {
   return (
     <div className="min-h-screen bg-black flex flex-col relative overflow-hidden">
       {/* Image de fond WWF */}
-      <div className="absolute inset-0 flex items-center justify-center pointer-events-none opacity-25" style={{ /* Ajustez opacity-XX : 25 = 25% visible, 40 = plus visible */ }}>
+      <div className="fixed inset-0 flex items-center justify-center pointer-events-none opacity-40">
         <object
           data="/wwf.svg"
           type="image/svg+xml"
@@ -69,27 +69,37 @@ function HomePage() {
         />
       </div>
 
-      <div className="container mx-auto px-4 py-2 sm:py-4 max-w-2xl flex-1 relative z-10">
-        {/* Logo et textes placeholder */}
-        <div className="text-center mb-2 sm:mb-3">
-          <div className="mb-1 flex justify-center relative">
-            <object
-              data="/blason.svg"
-              type="image/svg+xml"
-              className="blason w-[50vw] h-[50vw] sm:w-[40vw] sm:h-[40vw] max-w-md max-h-md"
-              aria-label="Blason"
-              style={{ /* Ajustez ces valeurs : w-[XXvw] = XX% de largeur écran */ }}
-            />
-            <div className="absolute right-4 top-4 sm:right-8 sm:top-8">
-              <LanguageSwitcher />
-            </div>
-          </div>
-          <div className="space-y-0.5 text-gray-300 text-sm sm:text-base mb-2">
-            <p>{invitesText || t.booking.invites}</p>
-            <p>{eventDate}</p>
-            <p>{t.booking.location}</p>
-            <p>{t.booking.appointment}</p>
-          </div>
+      {/* Drapeaux en haut à droite */}
+      <div className="absolute top-6 right-4 sm:top-8 sm:right-6 z-20">
+        <LanguageSwitcher />
+      </div>
+
+      <div className="container mx-auto px-4 max-w-2xl flex-1 relative z-10 flex flex-col py-0">
+        {/* Logo blason */}
+        <div className="text-center pt-6">
+          <object
+            data="/blason2.svg"
+            type="image/svg+xml"
+            className="blason w-[70vw] sm:w-[35vw] lg:w-[30vw] max-w-sm mx-auto"
+            style={{ height: '300px', objectFit: 'contain', objectPosition: 'top' }}
+            aria-label="Blason"
+          />
+        </div>
+
+        {/* Textes avec hiérarchie */}
+        <div className="text-center font-kings space-y-2 -mt-16">
+          <p className="text-white text-2xl sm:text-3xl">
+            {invitesText || t.booking.invites}
+          </p>
+          <p className="text-4xl sm:text-5xl font-bold" style={{ color: '#FFD700' }}>
+            {eventDate}
+          </p>
+          <p className="text-white text-2xl sm:text-3xl">
+            {t.booking.location}
+          </p>
+          <p className="text-xl sm:text-2xl" style={{ color: '#FFD700' }}>
+            {t.booking.appointment}
+          </p>
         </div>
 
         {loading ? (
@@ -111,13 +121,12 @@ function HomePage() {
       </div>
 
       {/* Logo rond en bas */}
-      <footer className="py-2 flex justify-center relative z-10">
+      <footer className="flex justify-center relative z-10 mt-12 pb-6">
         <object
           data="/rond.svg"
           type="image/svg+xml"
-          className="rond w-[50vw] h-[50vw] sm:w-[40vw] sm:h-[40vw] max-w-md max-h-md rounded-full"
+          className="rond w-[70vw] sm:w-[35vw] lg:w-[30vw] max-w-sm mx-auto rounded-full aspect-square"
           aria-label="Logo"
-          style={{ /* Ajustez ces valeurs : w-[XXvw] = XX% de largeur écran */ }}
         />
       </footer>
     </div>

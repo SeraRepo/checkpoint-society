@@ -45,7 +45,7 @@ function BookingForm({ session, onCancel, onSuccess }) {
     const editUrl = `${window.location.origin}/booking/${bookingToken}`
 
     return (
-      <div className="bg-black/40 backdrop-blur-md border-2 border-orange-500 rounded-lg shadow-lg p-8 text-center" style={{ /* Ajustez bg-black/XX : 40 = très transparent */ }}>
+      <div className="bg-black/40 backdrop-blur-md border-2 rounded-md shadow-lg p-8 text-center max-w-md mx-auto" style={{ borderColor: '#FFD700' }}>
         <div className={`${isWaitlist ? 'text-orange-400' : 'text-green-400'} text-5xl mb-4`}>
           {isWaitlist ? '⏳' : '✓'}
         </div>
@@ -56,13 +56,13 @@ function BookingForm({ session, onCancel, onSuccess }) {
           {isWaitlist ? t.booking.waitlistSuccessMessage : t.booking.successMessage}
         </p>
 
-        <div className="bg-orange-900/40 border border-orange-400 rounded-lg p-4 mb-6">
+        <div className="border rounded-md p-4 mb-6" style={{ borderColor: '#FFD700', backgroundColor: 'rgba(255, 215, 0, 0.1)' }}>
           <p className="text-sm font-medium text-gray-100 mb-2">
             {language === 'fr'
               ? 'Pour modifier votre réservation, utilisez ce lien :'
               : 'To edit your booking, use this link:'}
           </p>
-          <div className="bg-black/50 border border-orange-400 rounded px-3 py-2 mb-3 break-all text-sm text-orange-300">
+          <div className="bg-black/50 border rounded px-3 py-2 mb-3 break-all text-sm" style={{ borderColor: '#FFD700', color: '#FFD700' }}>
             {editUrl}
           </div>
           <button
@@ -70,7 +70,8 @@ function BookingForm({ session, onCancel, onSuccess }) {
               navigator.clipboard.writeText(editUrl)
               alert(language === 'fr' ? 'Lien copié !' : 'Link copied!')
             }}
-            className="text-sm text-orange-300 hover:text-orange-200 underline font-medium"
+            className="text-sm underline font-medium hover:opacity-80"
+            style={{ color: '#FFD700' }}
           >
             {language === 'fr' ? '📋 Copier le lien' : '📋 Copy link'}
           </button>
@@ -84,7 +85,8 @@ function BookingForm({ session, onCancel, onSuccess }) {
 
         <button
           onClick={onCancel}
-          className="bg-orange-600 border-2 border-orange-400 text-white px-6 py-3 rounded-lg font-medium hover:bg-orange-700 transition-colors"
+          className="border-2 text-black px-6 py-3 rounded-md font-medium hover:opacity-90 transition-opacity"
+          style={{ backgroundColor: '#FFD700', borderColor: '#FFD700' }}
         >
           {t.booking.back}
         </button>
@@ -93,21 +95,22 @@ function BookingForm({ session, onCancel, onSuccess }) {
   }
 
   return (
-    <div className="bg-black/40 backdrop-blur-md border-2 border-orange-500 rounded-lg shadow-lg p-6" style={{ /* Ajustez bg-black/XX : 40 = très transparent */ }}>
+    <div className="bg-black/40 backdrop-blur-md border-2 rounded-md shadow-lg p-6 max-w-md mx-auto" style={{ borderColor: '#FFD700' }}>
       <button
         onClick={onCancel}
-        className="text-white hover:text-orange-300 mb-4 flex items-center font-medium"
+        className="text-white mb-4 flex items-center font-medium hover:opacity-80"
+        style={{ color: '#FFD700' }}
       >
         ← {t.booking.back}
       </button>
 
-      <h2 className="text-2xl font-bold text-white mb-6">
+      <h2 className="text-2xl font-bold text-white mb-6 text-center">
         {t.booking.title} : {session.name}
       </h2>
 
       <form onSubmit={handleSubmit} className="space-y-4">
         {session.available_slots < formData.party_size && (
-          <div className="bg-orange-900/40 border border-orange-400 text-orange-200 px-4 py-3 rounded-lg">
+          <div className="border rounded-md px-4 py-3" style={{ borderColor: '#FFD700', backgroundColor: 'rgba(255, 215, 0, 0.1)', color: '#FFD700' }}>
             ⚠️ {t.booking.waitlistWarning}
           </div>
         )}
@@ -122,7 +125,8 @@ function BookingForm({ session, onCancel, onSuccess }) {
             required
             value={formData.name}
             onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-            className="w-full px-4 py-2 bg-white/90 border border-orange-400 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-orange-500 text-gray-900"
+            className="w-full px-4 py-2 bg-white/90 border rounded-md focus:ring-2 text-gray-900"
+            style={{ borderColor: '#FFD700', '--tw-ring-color': '#FFD700' }}
             placeholder={language === 'fr' ? 'Jean Dupont' : 'John Doe'}
           />
         </div>
@@ -136,7 +140,8 @@ function BookingForm({ session, onCancel, onSuccess }) {
             required
             value={formData.party_size}
             onChange={(e) => setFormData({ ...formData, party_size: parseInt(e.target.value) })}
-            className="w-full px-4 py-2 bg-white/90 border border-orange-400 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-orange-500 text-gray-900"
+            className="w-full px-4 py-2 bg-white/90 border rounded-md focus:ring-2 text-gray-900"
+            style={{ borderColor: '#FFD700', '--tw-ring-color': '#FFD700' }}
           >
             {[...Array(10)].map((_, i) => (
               <option key={i + 1} value={i + 1}>
@@ -164,7 +169,8 @@ function BookingForm({ session, onCancel, onSuccess }) {
             pattern="[a-zA-Z0-9._+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}"
             value={formData.email}
             onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-            className="w-full px-4 py-2 bg-white/90 border border-orange-400 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-orange-500 text-gray-900"
+            className="w-full px-4 py-2 bg-white/90 border rounded-md focus:ring-2 text-gray-900"
+            style={{ borderColor: '#FFD700', '--tw-ring-color': '#FFD700' }}
             placeholder={language === 'fr' ? 'jean.dupont@example.com' : 'john.doe@example.com'}
             title={language === 'fr' ? 'Entrez une adresse email valide (ex: nom@exemple.com)' : 'Enter a valid email address (e.g., name@example.com)'}
           />
@@ -180,13 +186,14 @@ function BookingForm({ session, onCancel, onSuccess }) {
             required
             value={formData.phone}
             onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-            className="w-full px-4 py-2 bg-white/90 border border-orange-400 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-orange-500 text-gray-900"
+            className="w-full px-4 py-2 bg-white/90 border rounded-md focus:ring-2 text-gray-900"
+            style={{ borderColor: '#FFD700', '--tw-ring-color': '#FFD700' }}
             placeholder={language === 'fr' ? '+33 6 12 34 56 78' : '+1 234 567 8900'}
           />
         </div>
 
         {error && (
-          <div className="bg-red-900/50 border border-red-400 text-red-200 px-4 py-3 rounded-lg">
+          <div className="border rounded-md px-4 py-3" style={{ borderColor: '#DC2626', backgroundColor: 'rgba(220, 38, 38, 0.1)', color: '#FCA5A5' }}>
             {error}
           </div>
         )}
@@ -194,7 +201,8 @@ function BookingForm({ session, onCancel, onSuccess }) {
         <button
           type="submit"
           disabled={loading}
-          className="w-full bg-orange-600 border-2 border-orange-400 text-white py-3 px-4 rounded-lg font-medium hover:bg-orange-700 disabled:bg-gray-600 disabled:border-gray-500 transition-colors"
+          className="w-full border-2 text-black py-3 px-4 rounded-md font-medium hover:opacity-90 disabled:opacity-50 transition-opacity"
+          style={{ backgroundColor: '#FFD700', borderColor: '#FFD700' }}
         >
           {loading ? t.booking.submitting : t.booking.confirmButton}
         </button>
