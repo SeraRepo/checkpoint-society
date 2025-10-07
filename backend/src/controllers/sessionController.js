@@ -132,3 +132,20 @@ exports.updateSession = asyncHandler(async (req, res) => {
 
   return ApiResponse.success(res, session, 'Session updated successfully')
 })
+
+/**
+ * @route DELETE /api/sessions/:id
+ * @desc Delete session
+ * @access Private (Admin)
+ */
+exports.deleteSession = asyncHandler(async (req, res) => {
+  const { id } = req.params
+
+  const deleted = Session.delete(id)
+
+  if (!deleted) {
+    throw ApiError.notFound('Session not found')
+  }
+
+  return ApiResponse.success(res, null, 'Session deleted successfully')
+})

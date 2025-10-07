@@ -62,6 +62,12 @@ class Session {
     const result = stmt.run(name, start_time, end_time, total_slots, Math.max(0, newAvailableSlots), id)
     return result.changes > 0
   }
+
+  static delete(id) {
+    const stmt = db.prepare('DELETE FROM sessions WHERE id = ?')
+    const result = stmt.run(id)
+    return result.changes > 0
+  }
 }
 
 module.exports = Session

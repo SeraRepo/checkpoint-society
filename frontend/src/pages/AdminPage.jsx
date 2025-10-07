@@ -108,6 +108,19 @@ function AdminPage() {
     }
   }
 
+  const handleDeleteSession = async (sessionId) => {
+    if (!window.confirm('Êtes-vous sûr de vouloir supprimer cette session ? Toutes les réservations associées seront également supprimées.')) {
+      return
+    }
+
+    try {
+      await api.deleteSession(sessionId)
+      await loadData()
+    } catch (error) {
+      alert('Erreur lors de la suppression: ' + error.message)
+    }
+  }
+
   const handleSaveSettings = async () => {
     setSavingSettings(true)
     try {
@@ -222,12 +235,20 @@ function AdminPage() {
                     timeStyle: 'short'
                   })}
                 </p>
-                <button
-                  onClick={() => handleEditSession(session)}
-                  className="text-blue-600 hover:text-blue-900 font-medium text-sm w-full text-center py-2 border border-blue-600 rounded"
-                >
-                  Modifier
-                </button>
+                <div className="flex gap-2">
+                  <button
+                    onClick={() => handleEditSession(session)}
+                    className="flex-1 text-blue-600 hover:text-blue-900 font-medium text-sm py-2 border border-blue-600 rounded"
+                  >
+                    Modifier
+                  </button>
+                  <button
+                    onClick={() => handleDeleteSession(session.id)}
+                    className="flex-1 text-red-600 hover:text-red-900 font-medium text-sm py-2 border border-red-600 rounded"
+                  >
+                    Supprimer
+                  </button>
+                </div>
               </div>
             ))}
           </div>
@@ -259,9 +280,15 @@ function AdminPage() {
                     <td className="px-3 lg:px-4 py-3 text-xs sm:text-sm text-right">
                       <button
                         onClick={() => handleEditSession(session)}
-                        className="text-blue-600 hover:text-blue-900 font-medium"
+                        className="text-blue-600 hover:text-blue-900 font-medium mr-3"
                       >
                         Modifier
+                      </button>
+                      <button
+                        onClick={() => handleDeleteSession(session.id)}
+                        className="text-red-600 hover:text-red-900 font-medium"
+                      >
+                        Supprimer
                       </button>
                     </td>
                   </tr>

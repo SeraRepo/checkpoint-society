@@ -83,6 +83,11 @@ const api = {
     return response
   },
 
+  async deleteSession(sessionId) {
+    await apiClient.delete(`/sessions/${sessionId}`)
+    return { success: true }
+  },
+
   async getSettings() {
     const response = await apiClient.get('/settings')
     return response
